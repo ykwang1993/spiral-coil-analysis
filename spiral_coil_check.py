@@ -54,38 +54,49 @@ def plot_analysis():
 	plt.ylim(0,120)
 	
 	plt.subplot(outline+2)
-	plt.plot(long_chain[:,0],long_chain[:,1],'ro')	
+	plt.plot(long_chain[:,0],long_chain[:,1],'ro-')	
 	plt.axis('equal')
 	plt.title('Zoom In')
 	plt.xlabel('x')
 	plt.ylabel('y')
 	
-	
-
 	plt.subplot(outline+3)
-	plt.plot(time_index,r_g,'b')	
-	plt.title('Radius of Gyration')
-	plt.xlabel('t')
-	plt.ylabel('Length')
-
-	plt.subplot(outline+4)
 	plt.plot(time_index,L_ee,'b')
 	plt.title('End to End Distance')
 	plt.xlabel('t')
-	plt.ylabel('Length')	
-
-	plt.subplot(outline+5)
+	plt.ylabel('Length')
+	
+	plt.subplot(outline+4)
 	plt.plot(vec_angle_time,vec_angle_cumulative,'b')
 	plt.title('End to End Cumulative Angle')
 	plt.xlabel('t')
-	plt.ylabel('Degree')	
-
+	plt.ylabel('Degree')
+	
+	plt.subplot(outline+5)
+	plt.plot(cumu_vec_t,'b')
+	plt.title('Cumulative Angle')
+	plt.xlabel('t')
+	plt.ylabel('Degree')
+	
 	plt.subplot(outline+6)
 	plt.plot(cumu_vec,'b')
 	plt.title('Cumulative Angle of last frame')
 	plt.xlabel('# of beads')
 	plt.ylabel('Degree')
+
+	plt.subplot(outline+7)
+	plt.plot(time_index,r_g,'b')	
+	plt.title('Radius of Gyration')
+	plt.xlabel('t')
+	plt.ylabel('Length')
+
+		
+
+		
+
 	
+	
+	"""
 	plt.subplot(outline+7)
 	#plt.plot(p_l_f,'b')
 	plt.plot(np.log(p_l_f),'b')
@@ -96,7 +107,7 @@ def plot_analysis():
 	#plt.semilogy(p_l_s)
 	plt.plot(np.log(p_l_s),'b')
 	plt.title('P_l same')
-
+	"""
 
 
 	plt.show()	
@@ -106,6 +117,7 @@ def plot_analysis():
 r_g = np.empty([125],dtype='float')
 L_ee = np.empty([125],dtype='float')
 vec_ee = np.empty([125,2],dtype='float')
+cumu_vec_t = np.empty([125],dtype='float')
 
 time_index=np.arange(125)
 time_index = (time_index+1)*8-1
@@ -115,7 +127,7 @@ time_index = (time_index+1)*8-1
 for t in range(125):
 
 	index = '{:03d}'.format(time_index[t])
-	file = 'D:\\ykwang\\Data\\SPP simulation\\SPP_list\\Run01\\00R\\kl_100\\2\\'+index+'.txt'
+	file = 'D:\\ykwang\\Data\\SPP simulation\\SPP_list\\Run01\\00R\\kl_10\\10\\'+index+'.txt'
 	
 	
 	data = np.loadtxt(file,dtype='float')
@@ -143,7 +155,10 @@ for t in range(125):
 	#store the end to end vector
 	vec_ee[t,:] = [long_chain[0,0]-long_chain[95,0],long_chain[0,1]-long_chain[95,1]]
 	
-	
+	#cumulative angle
+	cumu_vec=cumulative_angle(long_chain)
+	cumu_vec=np.cumsum(cumu_vec)
+	cumu_vec_t[t] = cumu_vec[-1]
 	
 	
 	
