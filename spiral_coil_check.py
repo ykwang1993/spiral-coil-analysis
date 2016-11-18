@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math as math 
+import deriv
 
 def radius_gyration(long_chain):
 	r_g= math.sqrt(((long_chain[:,0]-long_chain[:,0].mean())**2 + (long_chain[:,1]-long_chain[:,1].mean())**2).mean())
@@ -90,6 +91,8 @@ def plot_analysis():
 	plt.xlabel('t')
 	plt.ylabel('Length')
 
+	#flat = deriv.flat_detect()
+	#plt.plot(flat,r_g[flat],'r',linewidth=2)
 		
 
 		
@@ -127,7 +130,7 @@ time_index = (time_index+1)*8-1
 for t in range(125):
 
 	index = '{:03d}'.format(time_index[t])
-	file = 'D:\\ykwang\\Data\\SPP simulation\\SPP_list\\Run01\\00R\\kl_10\\10\\'+index+'.txt'
+	file = 'D:\\ykwang\\Data\\SPP simulation\\SPP_list\\Run01\\15R\\kl_20\\2\\'+index+'.txt'
 	
 	
 	data = np.loadtxt(file,dtype='float')
@@ -145,7 +148,7 @@ for t in range(125):
 					long_chain[i,d]+=120.
 	#radius of gyration
 	r_g[t]=radius_gyration(long_chain)
-	
+
 	
 	#end to end distance
 	L_ee[t] = math.sqrt((long_chain[0,0]-long_chain[95,0])**2+(long_chain[0,1]-long_chain[95,1])**2)
@@ -163,6 +166,8 @@ for t in range(125):
 	
 	
 	print(t)
+
+	
 
 #cumulative angle change in one frame	
 cumu_vec=cumulative_angle(long_chain)
