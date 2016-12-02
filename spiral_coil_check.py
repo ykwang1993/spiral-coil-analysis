@@ -74,7 +74,7 @@ def plot_analysis():
 	plt.ylabel('Degree')
 	
 	plt.subplot(outline+5)
-	plt.plot(cumu_vec_t,'b')
+	plt.plot(time_index,cumu_vec_t,'b')
 	plt.title('Cumulative Angle')
 	plt.xlabel('t')
 	plt.ylabel('Degree')
@@ -91,8 +91,8 @@ def plot_analysis():
 	plt.xlabel('t')
 	plt.ylabel('Length')
 
-	#flat = deriv.flat_detect()
-	#plt.plot(flat,r_g[flat],'r',linewidth=2)
+	flat = deriv.flat_detect()
+	plt.plot((flat+1)*8-1,r_g[flat],'r',linewidth=2)
 		
 
 		

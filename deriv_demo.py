@@ -41,6 +41,7 @@ def flat_detect():
 	for i in range(smooth_num):
 		data_smooth=smooth_1D(data_smooth)
 		
+	deriv_criteria = np.linspace(0,140,10)
 
 	data_deriv=np.gradient(data_smooth)
 	data_flat = np.zeros(data_deriv.size,dtype=int)
